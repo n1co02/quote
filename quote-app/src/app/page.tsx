@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
-
+import { useDispatch } from 'react-redux'
 import styles from './styles/loginPageStyles' // Adjust the path as needed
 import { handleLogin } from './components/authComponent'
 
@@ -9,11 +9,12 @@ export default function Home() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const router = useRouter()
+  const dispatch = useDispatch
 
   const handleSubmit = async (event: { preventDefault: () => void }) => {
     event.preventDefault() // This line prevents the default form submission behavior
 
-    const loginResponse: boolean = await handleLogin(email, password)
+    const loginResponse: boolean = await handleLogin(email, password, dispatch)
     if (loginResponse) router.push('/quotes')
   }
 

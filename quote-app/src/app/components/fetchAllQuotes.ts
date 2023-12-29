@@ -10,6 +10,5 @@ export const fetchRandomLoveQuote = async () => {
   const randomDocId = documentIds[randomIndex]
 
   const randomDoc = querySnapshot.docs.find((doc) => doc.id === randomDocId)
-  console.log(randomDoc?.data())
   return randomDoc?.data().english
 }
