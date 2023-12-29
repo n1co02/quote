@@ -26,7 +26,7 @@ const CategoryComponent = () => {
     }
 
     fetchQuotes()
-  }, [categoryName]) // Now the effect depends on the category
+  }, [categoryName])
   return (
     <div className={styles.container}>
       <h1 className={styles.header}>Emotional Quotes</h1>

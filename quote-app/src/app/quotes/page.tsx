@@ -1,10 +1,12 @@
 'use client'
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-
 import { fetchRandomLoveQuote } from '../components/fetchAllQuotes'
 import styles from '../styles/quotesPageStyles'
+import { useSelector } from 'react-redux'
 export default function Quotes() {
+  const user = useSelector((state) => state.auth.user)
+  console.log(user)
   const [quote, setQuote] = useState('')
   const router = useRouter()
 
@@ -24,7 +26,6 @@ export default function Quotes() {
     'RANDOM',
   ]
   const handleCategoryClick = (category: string) => {
-    // Navigate to the category page
     router.push(`/quotes/${category.toLowerCase()}`)
   }
   return (

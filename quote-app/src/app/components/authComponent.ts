@@ -1,12 +1,12 @@
 import { signInWithEmailAndPassword, UserCredential } from 'firebase/auth'
 import { getAuth } from 'firebase/auth'
 import firebase from '../../config/firebaseConfig'
-import { setUser } from '../lib/authSlice'
+import { SerializableUser, setUser } from '../lib/authSlice'
 // Login
 export const handleLogin = async (
   email: string,
   password: string,
-  dispatch: Function, // Add dispatch as a parameter
+  dispatch: Function,
 ): Promise<boolean> => {
   try {
     const auth = getAuth(firebase)
@@ -16,7 +16,13 @@ export const handleLogin = async (
       password,
     )
     if (userCredential.user) {
-      dispatch(setUser(userCredential.user)) // Dispatch the user data
+      const user = userCredential.user
+      const userData: SerializableUser = {
+        uid: user.uid,
+        email: user.email,
+        displayName: user.displayName,
+      }
+      dispatch(setUser(userData))
       return true
     }
     return false

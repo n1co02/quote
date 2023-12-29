@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useDispatch } from 'react-redux'
-import styles from './styles/loginPageStyles' // Adjust the path as needed
+import styles from './styles/loginPageStyles'
 import { handleLogin } from './components/authComponent'
 
 export default function Home() {
@@ -12,7 +12,7 @@ export default function Home() {
   const dispatch = useDispatch()
 
   const handleSubmit = async (event: { preventDefault: () => void }) => {
-    event.preventDefault() // This line prevents the default form submission behavior
+    event.preventDefault()
     const loginResponse: boolean = await handleLogin(email, password, dispatch)
     if (loginResponse) router.push('/quotes')
   }
@@ -37,7 +37,7 @@ export default function Home() {
             <input
               className={styles.input}
               placeholder="Password"
-              type="password" // This ensures the input is treated as a password
+              type="password"
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}

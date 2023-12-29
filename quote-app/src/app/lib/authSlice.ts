@@ -1,7 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+export type SerializableUser = {
+  uid: string
+  email: string | null
+  displayName: string | null
+}
 
-interface AuthState {
-  user: any // Replace 'any' with a more specific type for your user
+type AuthState = {
+  user: SerializableUser | null
   error: string | null
 }
 
@@ -14,7 +19,7 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setUser: (state, action: PayloadAction<any>) => {
+    setUser: (state, action: PayloadAction<SerializableUser>) => {
       state.user = action.payload
     },
     setError: (state, action: PayloadAction<string>) => {
