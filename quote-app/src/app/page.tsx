@@ -9,11 +9,10 @@ export default function Home() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const router = useRouter()
-  const dispatch = useDispatch
+  const dispatch = useDispatch()
 
   const handleSubmit = async (event: { preventDefault: () => void }) => {
     event.preventDefault() // This line prevents the default form submission behavior
-
     const loginResponse: boolean = await handleLogin(email, password, dispatch)
     if (loginResponse) router.push('/quotes')
   }
