@@ -3,11 +3,10 @@ import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { fetchRandomLoveQuote } from '../components/fetchAllQuotes'
 import styles from '../styles/quotesPageStyles'
-import { useSelector } from 'react-redux'
+import UserContextComp from '../lib/userContext'
 export default function Quotes() {
   const [quote, setQuote] = useState('')
   const router = useRouter()
-
   useEffect(() => {
     const getQuote = async () => {
       const fetchedQuote = await fetchRandomLoveQuote()

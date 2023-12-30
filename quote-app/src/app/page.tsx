@@ -4,13 +4,12 @@ import { useRouter } from 'next/navigation'
 import { useDispatch } from 'react-redux'
 import styles from './styles/loginPageStyles'
 import { handleLogin } from './components/authComponent'
-
+import UserContextComp, { useUser } from './lib/userContext'
 export default function Home() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const router = useRouter()
   const dispatch = useDispatch()
-  localStorage.clear()
 
   const handleSubmit = async (event: { preventDefault: () => void }) => {
     event.preventDefault()
