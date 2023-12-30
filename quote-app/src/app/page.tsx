@@ -10,6 +10,7 @@ export default function Home() {
   const [password, setPassword] = useState('')
   const router = useRouter()
   const dispatch = useDispatch()
+  localStorage.clear()
 
   const handleSubmit = async (event: { preventDefault: () => void }) => {
     event.preventDefault()

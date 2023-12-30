@@ -5,8 +5,6 @@ import { fetchRandomLoveQuote } from '../components/fetchAllQuotes'
 import styles from '../styles/quotesPageStyles'
 import { useSelector } from 'react-redux'
 export default function Quotes() {
-  const user = useSelector((state) => state.auth.user)
-  console.log(user)
   const [quote, setQuote] = useState('')
   const router = useRouter()
 

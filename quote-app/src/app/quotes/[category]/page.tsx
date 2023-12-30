@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react'
 import { DocumentData } from 'firebase/firestore'
 import { fetchQuotesFromCollection } from '../../components/fetchCategoryQuote'
 import styles from '@/app/styles/categoryStyles'
+import { useSelector } from 'react-redux'
 
 const CategoryComponent = () => {
   const [quotes, setQuotes] = useState<DocumentData[]>([])

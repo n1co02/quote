@@ -20,7 +20,6 @@ export const handleLogin = async (
       const userData: SerializableUser = {
         uid: user.uid,
         email: user.email,
-        displayName: user.displayName,
       }
       dispatch(setUser(userData))
       return true
