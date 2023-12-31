@@ -2,7 +2,7 @@ import { signInWithEmailAndPassword, UserCredential } from 'firebase/auth'
 import { getAuth } from 'firebase/auth'
 import firebase from '../../config/firebaseConfig'
 import { SerializableUser, setUser } from '../lib/authSlice'
-// Login
+
 export const handleLogin = async (
   email: string,
   password: string,

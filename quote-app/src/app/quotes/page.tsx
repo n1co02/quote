@@ -3,7 +3,15 @@ import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { fetchRandomLoveQuote } from '../components/fetchAllQuotes'
 import styles from '../styles/quotesPageStyles'
-import UserContextComp from '../lib/userContext'
+
+export const categories = [
+  'LOVE',
+  'INSPIRATIONAL',
+  'PHILOSOPHICAL',
+  'EMOTIONAL',
+  'RANDOM',
+]
+
 export default function Quotes() {
   const [quote, setQuote] = useState('')
   const router = useRouter()
@@ -15,16 +23,11 @@ export default function Quotes() {
 
     getQuote()
   }, [])
-  const categories = [
-    'LOVE',
-    'INSPIRATIONAL',
-    'PHILOSOPHICAL',
-    'EMOTIONAL',
-    'RANDOM',
-  ]
+
   const handleCategoryClick = (category: string) => {
     router.push(`/quotes/${category.toLowerCase()}`)
   }
+
   return (
     <div className={styles.container}>
       <div className={styles.nav}>

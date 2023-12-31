@@ -1,6 +1,6 @@
 'use client'
 import { Provider } from 'react-redux'
-import storage, { store } from './store'
+import { store } from './store'
 import { PersistGate } from 'redux-persist/integration/react'
 import { persistStore } from 'redux-persist'
 import UserContextComp from './userContext'

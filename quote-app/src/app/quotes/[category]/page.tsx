@@ -1,34 +1,54 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import { DocumentData } from 'firebase/firestore'
 import { fetchQuotesFromCollection } from '../../components/fetchCategoryQuote'
+import { QuotePopUp } from './popUps/quotePopUp'
 import styles from '@/app/styles/categoryStyles'
+import { deleteQuoteOfCollection } from '@/app/components/deleteQuoteComponent'
+import ConfirmPopUp from './popUps/confirmPopUp'
 
 const CategoryComponent = () => {
   const [quotes, setQuotes] = useState<DocumentData[]>([])
   const [filteredQuotes, setFilteredQuotes] = useState<DocumentData[]>([])
   const [searchQuery, setSearchQuery] = useState('')
   const [showScrollButton, setShowScrollButton] = useState(false)
-  const router = useRouter()
+  const [isPopUpVisible, setIsPopUpVisible] = useState(false)
+  const [confirmDeletePopUp, setConfirmDeletePopUp] = useState(false)
+  const [quoteIdToDelete, setQuoteIdToDelete] = useState('')
+  const [currentQuote, setCurrentQuote] = useState({
+    id: '',
+    english: '',
+    spanish: '',
+    add: true,
+  })
   const category = usePathname().split('/')
   const categoryName = category[2]
 
+  const [highestId, setHighestId] = useState(0)
+
   useEffect(() => {
-    const fetchQuotes = async () => {
-      if (categoryName) {
+    if (!isPopUpVisible) {
+      const fetchQuotes = async () => {
         try {
           const data = await fetchQuotesFromCollection(categoryName)
           setQuotes(data)
-          setFilteredQuotes(data) // Initialize with all data
+          setFilteredQuotes(data)
+
+          const newHighestId = data.reduce((maxId, quote) => {
+            const quoteId = parseInt(quote.id, 10)
+            return quoteId > maxId ? quoteId : maxId
+          }, 0)
+
+          setHighestId(newHighestId)
         } catch (error) {
           console.error('Error fetching quotes: ', error)
         }
       }
-    }
 
-    fetchQuotes()
-  }, [categoryName])
+      fetchQuotes()
+    }
+  }, [isPopUpVisible, categoryName])
 
   useEffect(() => {
     const checkScrollTop = () => {
@@ -60,30 +80,56 @@ const CategoryComponent = () => {
     })
   }
 
-  const handleDeleteClick = (quoteId: any) => {
-    console.log(`Delete quote with id: ${quoteId}`)
-    // Implement delete logic here
+  const handleDeleteClick = async (quoteId: React.SetStateAction<string>) => {
+    setQuoteIdToDelete(quoteId)
+    setConfirmDeletePopUp(true)
   }
 
   const handleEditClick = (quoteId: any) => {
-    console.log(`Edit quote with id: ${quoteId}`)
-    // Implement edit logic here
+    const quoteToEdit = quotes.find((quote) => quote.id === quoteId)
+    if (quoteToEdit) {
+      setCurrentQuote({
+        id: quoteToEdit.id,
+        english: quoteToEdit.english,
+        spanish: quoteToEdit.spanish,
+        add: false,
+      })
+      setIsPopUpVisible(true)
+    } else {
+      console.error('Quote not found for editing')
+    }
   }
 
   const handleAddClick = () => {
-    console.log('Add a new quote')
-    // Implement add logic here
+    setCurrentQuote({
+      id: '',
+      english: '',
+      spanish: '',
+      add: true,
+    })
+    setIsPopUpVisible(true)
   }
-
+  const handleClosePopUp = () => {
+    setIsPopUpVisible(false)
+  }
+  const handleCloseConfirmPopUp = () => {
+    setConfirmDeletePopUp(false)
+    setQuoteIdToDelete('') // Resetting the quoteIdToDelete
+  }
   const handleSearchChange = (event: {
     target: { value: React.SetStateAction<string> }
   }) => {
     setSearchQuery(event.target.value)
   }
+  function capitalizeFirstLetter(string: string) {
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase()
+  }
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.header}>Emotional Quotes</h1>
+      <h1 className={styles.header}>
+        {capitalizeFirstLetter(categoryName)} Quotes
+      </h1>
       <div>
         <input
           type="text"
@@ -132,6 +178,24 @@ const CategoryComponent = () => {
         >
           ↑ Top
         </button>
+      )}
+      {isPopUpVisible && (
+        <QuotePopUp
+          onClose={handleClosePopUp}
+          categoryName={categoryName}
+          english={currentQuote.english}
+          spanish={currentQuote.spanish}
+          add={currentQuote.add}
+          highestId={highestId}
+          quoteId={currentQuote.id}
+        />
+      )}
+      {confirmDeletePopUp && (
+        <ConfirmPopUp
+          onClose={handleCloseConfirmPopUp}
+          categoryName={categoryName}
+          quoteId={quoteIdToDelete}
+        />
       )}
     </div>
   )
