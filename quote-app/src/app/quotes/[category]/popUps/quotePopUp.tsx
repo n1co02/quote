@@ -4,7 +4,7 @@ import darkStyles from '@/app/styles/quotePopUpStyles/quotePopUpDarkStyles'
 import ErrorPopUp from './errorPopUp'
 import { addQuoteToCollection } from '@/app/components/addQuoteComponent'
 import { editQuoteOfCollection } from '@/app/components/editQuoteComponent'
-import { categories } from '../../page'
+import { categories } from '../../categoriesType'
 import { useDarkMode } from '../../switchModeButton/SwitchModeButton'
 type QuotePopUpProps = {
   onClose: () => void

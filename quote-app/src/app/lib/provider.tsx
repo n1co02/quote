@@ -7,7 +7,7 @@ import UserContextComp from './userContext'
 
 let persistor = persistStore(store)
 
-export function Providers({ children }) {
+export function Providers({ children }: any) {
   UserContextComp()
   return (
     <Provider store={store}>

@@ -4,16 +4,10 @@ import { useRouter } from 'next/navigation'
 import { fetchRandomLoveQuote } from '../components/fetchAllQuotes'
 import lightStyles from '../styles/quotesPagesStyles/quotesPageStyles'
 import darkStyles from '../styles/quotesPagesStyles/quotesPagesDarkStyles'
+import { categories } from './categoriesType'
 import SwitchModeButton, {
   useDarkMode,
 } from './switchModeButton/SwitchModeButton'
-export const categories = [
-  'LOVE',
-  'INSPIRATIONAL',
-  'PHILOSOPHICAL',
-  'EMOTIONAL',
-  'RANDOM',
-]
 
 export default function Quotes() {
   const [quote, setQuote] = useState('')

@@ -5,7 +5,7 @@ import darkStyles from './toggleButtonstyles/toggleButtonDarkStyles'
 import lightStyles from './toggleButtonstyles/toggleButtonStyles'
 
 export const useDarkMode = () => {
-  const darkMode = useSelector((state) => state.auth.darkMode.darkMode)
+  const darkMode = useSelector((state: any) => state.auth.darkMode.darkMode)
   return darkMode
 }
 
