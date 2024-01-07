@@ -4,9 +4,12 @@ import { usePathname } from 'next/navigation'
 import { DocumentData } from 'firebase/firestore'
 import { fetchQuotesFromCollection } from '../../components/fetchCategoryQuote'
 import { QuotePopUp } from './popUps/quotePopUp'
-import styles from '@/app/styles/categoryStyles'
-import { deleteQuoteOfCollection } from '@/app/components/deleteQuoteComponent'
+import lightStyles from '@/app/styles/categoryStyles/categoryStyles'
+import darkStyles from '@/app/styles/categoryStyles/categoryDarkStyles'
 import ConfirmPopUp from './popUps/confirmPopUp'
+import SwitchModeButton, {
+  useDarkMode,
+} from '../switchModeButton/SwitchModeButton'
 
 const CategoryComponent = () => {
   const [quotes, setQuotes] = useState<DocumentData[]>([])
@@ -48,7 +51,7 @@ const CategoryComponent = () => {
 
       fetchQuotes()
     }
-  }, [isPopUpVisible, categoryName])
+  }, [isPopUpVisible, categoryName, confirmDeletePopUp])
 
   useEffect(() => {
     const checkScrollTop = () => {
@@ -114,7 +117,7 @@ const CategoryComponent = () => {
   }
   const handleCloseConfirmPopUp = () => {
     setConfirmDeletePopUp(false)
-    setQuoteIdToDelete('') // Resetting the quoteIdToDelete
+    setQuoteIdToDelete('')
   }
   const handleSearchChange = (event: {
     target: { value: React.SetStateAction<string> }
@@ -124,9 +127,11 @@ const CategoryComponent = () => {
   function capitalizeFirstLetter(string: string) {
     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase()
   }
-
+  const darkMode = useDarkMode()
+  const styles = darkMode ? darkStyles : lightStyles
   return (
     <div className={styles.container}>
+      <SwitchModeButton />
       <h1 className={styles.header}>
         {capitalizeFirstLetter(categoryName)} Quotes
       </h1>

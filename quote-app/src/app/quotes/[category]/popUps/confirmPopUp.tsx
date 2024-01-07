@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
-import popupStyles from '@/app/styles/confirmPopUpStyles'
+import lightStyles from '@/app/styles/confirmPopUpStyles/confirmPopUpStyles'
+import darkStyles from '@/app/styles/confirmPopUpStyles/confirmPopUpDarkStyles'
 import { deleteQuoteOfCollection } from '@/app/components/deleteQuoteComponent'
+import { useDarkMode } from '../../switchModeButton/SwitchModeButton'
 
 type ConfirmPopUpProps = {
   onClose: () => void
@@ -23,20 +25,21 @@ const ConfirmPopUp = ({
     if (await result) handleClose()
   }
   if (!showPopup) return null
-
+  const darkMode = useDarkMode()
+  const styles = darkMode ? darkStyles : lightStyles
   return (
-    <div className={popupStyles.popupContainer}>
-      <div className={popupStyles.popup}>
+    <div className={styles.popupContainer}>
+      <div className={styles.popup}>
         <h2 className="text-lg font-bold mb-4">Confirm to delete the quote</h2>
-        <div className={popupStyles.buttonContainer}>
+        <div className={styles.buttonContainer}>
           <button
-            className={`${popupStyles.button} ${popupStyles.noButton}`}
+            className={`${styles.button} ${styles.noButton}`}
             onClick={handleClose}
           >
             NO
           </button>
           <button
-            className={`${popupStyles.button} ${popupStyles.confirmButton}`}
+            className={`${styles.button} ${styles.confirmButton}`}
             onClick={handleDeletePopUp}
           >
             YES

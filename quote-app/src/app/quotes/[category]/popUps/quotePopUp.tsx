@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
-import popupStyles from '@/app/styles/quotePopUpStyles'
+import lightStyles from '@/app/styles/quotePopUpStyles/quotePopUpStyles'
+import darkStyles from '@/app/styles/quotePopUpStyles/quotePopUpDarkStyles'
 import ErrorPopUp from './errorPopUp'
 import { addQuoteToCollection } from '@/app/components/addQuoteComponent'
 import { editQuoteOfCollection } from '@/app/components/editQuoteComponent'
 import { categories } from '../../page'
+import { useDarkMode } from '../../switchModeButton/SwitchModeButton'
 type QuotePopUpProps = {
   onClose: () => void
   categoryName: string
@@ -89,25 +91,27 @@ export const QuotePopUp = ({
   const handleClosePopUp = () => {
     setErrorPopUp(false)
   }
+  const darkMode = useDarkMode()
+  const styles = darkMode ? darkStyles : lightStyles
   return (
     <>
       {errorPopUp && <ErrorPopUp onClose={handleClosePopUp} />}
       {!errorPopUp && (
-        <div className={popupStyles.popupContainer}>
-          <div className={popupStyles.popup}>
+        <div className={styles.popupContainer}>
+          <div className={styles.popup}>
             <h2>
               {add ? 'Add New Quote' : 'Edit Quote'} to "{categoryName}"
             </h2>
             <input
               type="text"
-              className={popupStyles.inputField}
+              className={styles.inputField}
               placeholder="English"
               value={englishText}
               onChange={handleEnglishChange}
             />
             <input
               type="text"
-              className={popupStyles.inputField}
+              className={styles.inputField}
               placeholder="Spanish"
               value={spanishText}
               onChange={handleSpanishChange}
@@ -115,7 +119,7 @@ export const QuotePopUp = ({
 
             {!add && (
               <select
-                className={popupStyles.dropdown}
+                className={styles.dropdown}
                 value={selectedOption}
                 onChange={(e) => setSelectedOption(e.target.value)}
               >
@@ -127,16 +131,16 @@ export const QuotePopUp = ({
               </select>
             )}
 
-            <div className={popupStyles.buttonContainer}>
+            <div className={styles.buttonContainer}>
               <button
-                className={`${popupStyles.button} ${popupStyles.closeButton}`}
+                className={`${styles.button} ${styles.closeButton}`}
                 onClick={onClose}
               >
                 Close
               </button>
               {add ? (
                 <button
-                  className={`${popupStyles.button} ${popupStyles.addButton}`}
+                  className={`${styles.button} ${styles.addButton}`}
                   onClick={() =>
                     handleAddClick(
                       categoryName,
@@ -151,7 +155,7 @@ export const QuotePopUp = ({
                 </button>
               ) : (
                 <button
-                  className={`${popupStyles.button} ${popupStyles.editButton}`}
+                  className={`${styles.button} ${styles.editButton}`}
                   onClick={() =>
                     handleEditClick(
                       onClose,

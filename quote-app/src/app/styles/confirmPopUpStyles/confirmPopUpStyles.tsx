@@ -1,4 +1,4 @@
-const popupStyles: { [key: string]: string } = {
+const lightStyles: { [key: string]: string } = {
   popupContainer: `
     fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50
   `,
@@ -23,4 +23,4 @@ const popupStyles: { [key: string]: string } = {
   `,
 }
 
-export default popupStyles
+export default lightStyles

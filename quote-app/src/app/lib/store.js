@@ -6,6 +6,7 @@ import {
 } from '@reduxjs/toolkit'
 import { persistReducer } from 'redux-persist'
 import authSlice from './authSlice'
+import darkModeReducer from './darkModeSlice'
 import createWebStorage from 'redux-persist/lib/storage/createWebStorage'
 
 const createNoopStorage = () => {
@@ -32,6 +33,7 @@ const persistConfig = {
 }
 const reducer = combineReducers({
   user: authSlice,
+  darkMode: darkModeReducer,
 })
 const persistedReducer = persistReducer(persistConfig, reducer)
 

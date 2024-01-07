@@ -1,5 +1,5 @@
 // QuotesStyles.tsx
-const styles: { [key: string]: string } = {
+const lightStyles: { [key: string]: string } = {
   container:
     'flex flex-col items-center justify-center min-h-screen bg-gray-100',
   nav: 'flex flex-col md:flex-row justify-center mb-4',
@@ -10,4 +10,4 @@ const styles: { [key: string]: string } = {
   quote: 'text-lg text-gray-700 italic',
 }
 
-export default styles
+export default lightStyles

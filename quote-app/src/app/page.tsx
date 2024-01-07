@@ -1,15 +1,24 @@
 'use client'
 import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { useDispatch } from 'react-redux'
-import styles from './styles/loginPageStyles'
+import { useDispatch, useSelector } from 'react-redux'
+import { toggleDarkMode } from './lib/darkModeSlice'
+import lightStyles from './styles/loginPageStyles/loginPageStyles'
+import darkStyles from './styles/loginPageStyles/loginPageDarkStyles'
 import { handleLogin } from './components/authComponent'
-import UserContextComp, { useUser } from './lib/userContext'
+import Image from 'next/image'
+import img from './styles/img/tree.png'
+import SwitchModeButton, {
+  useDarkMode,
+} from './quotes/switchModeButton/SwitchModeButton'
 export default function Home() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const router = useRouter()
   const dispatch = useDispatch()
+
+  const darkMode = useDarkMode()
+  const styles = darkMode ? darkStyles : lightStyles
 
   const handleSubmit = async (event: { preventDefault: () => void }) => {
     event.preventDefault()
@@ -19,6 +28,15 @@ export default function Home() {
 
   return (
     <div className={styles.container}>
+      <SwitchModeButton />
+      <div className={styles.imageContainer}>
+        <Image
+          src={img}
+          alt="Greek Philosopher Thinking"
+          layout="fill"
+          objectFit="contain"
+        />
+      </div>
       <div className={styles.formContainer}>
         <h2 className={styles.title}>Login</h2>
         <form onSubmit={handleSubmit} className={styles.form}>
