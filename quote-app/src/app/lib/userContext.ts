@@ -2,7 +2,6 @@ import { useState, useEffect, createContext, useContext } from 'react'
 import firebase from '../../config/firebaseConfig'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 
-// Define a type for your user state
 type UserType = {
   uid: string
   email: string | null
