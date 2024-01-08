@@ -131,7 +131,6 @@ const CategoryComponent = () => {
   const styles = darkMode ? darkStyles : lightStyles
   return (
     <div className={styles.container}>
-      <SwitchModeButton />
       <h1 className={styles.header}>
         {capitalizeFirstLetter(categoryName)} Quotes
       </h1>

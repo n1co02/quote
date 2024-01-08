@@ -28,7 +28,6 @@ export default function Quotes() {
   const styles = darkMode ? darkStyles : lightStyles
   return (
     <div className={styles.container}>
-      <SwitchModeButton />
       <div className={styles.nav}>
         {categories.map((category) => (
           <button
