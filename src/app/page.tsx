@@ -8,9 +8,7 @@ import darkStyles from './styles/loginPageStyles/loginPageDarkStyles'
 import { handleLogin } from './components/authComponent'
 import Image from 'next/image'
 import img from './styles/img/tree.png'
-import SwitchModeButton, {
-  useDarkMode,
-} from './quotes/switchModeButton/SwitchModeButton'
+import { useDarkMode } from './quotes/switchModeButton/SwitchModeButton'
 export default function Home() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
